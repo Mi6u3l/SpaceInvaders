@@ -56,19 +56,28 @@ Game.prototype._drawShip = function() {
     });
 };
 
+Game.prototype._drawLaser = function() {
+    var selector = '[data-row=' + (this.laser.row-1) + ']' +
+                   '[data-col=' + this.laser.col + ']';
+    console.log(selector);
+    $(selector).addClass('laser');
+    $(selector).text('l');
+};
+
 Game.prototype._clearInvaders = function() {
   $('.invader').removeClass('invader');
 };
-
 
 Game.prototype._clearShip = function() {
   $('.ship').removeClass('ship');
 };
 
-Game.prototype._update = function() {
-  this.invaders.move();
- 
+Game.prototype._clearLaser = function() {
+  $('.laser').removeClass('laser');
+};
 
+Game.prototype._updateInvaders = function() {
+  this.invaders.move();
   this._clearInvaders();
   this._drawInvaders();
 };
@@ -85,15 +94,38 @@ Game.prototype.moveShipRight = function() {
     this._drawShip();
 };
 
+Game.prototype.shootLaser = function() {
+    var laserStartCol = this.ship.locations[2].column;
+    var laserStartRow = this.ship.locations[2].row;
+    this.laser = new Laser({col: laserStartCol, row: laserStartRow});
+    this._drawLaser();
+    if (!this.laser.intervalId) {
+        this.laser.intervalId = setInterval(this._updateLaser.bind(this), 100);   
+    }
+};
+
+Game.prototype._updateLaser = function() {
+    this.laser.move();
+    this._clearLaser();
+    this._drawLaser();
+    
+};
+
 Game.prototype.start = function() {
       if (!this.intervalId) {
-    this.intervalId = setInterval(this._update.bind(this), 1000);
+        this.intervalId = setInterval(this._updateInvaders.bind(this), 1000);
   }
 };
 
 Game.prototype._assignControlsToKeys = function() {
   $('body').on('keydown', function(e) {
     switch (e.keyCode) {
+      case 32: // arrow left
+        if(this.laser !== undefined) {
+            clearInterval(this.laser.intervalId);
+        }
+        this.shootLaser();
+        break;
       case 37: // arrow left
         this.moveShipLeft();
         break;

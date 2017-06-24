@@ -18,7 +18,6 @@
   height: 40px;  
   box-sizing: border-box;
   padding-top: 10px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .invader {
@@ -26,8 +25,11 @@
     background-color: red;
 }
 
-
 .ship {
     text-align: center;
     background-color: red;
+}
+
+.laser {  
+   border-left: 4px solid blue;
 }
