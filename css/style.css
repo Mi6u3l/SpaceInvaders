@@ -1,0 +1,33 @@
+* {
+  box-sizing: border-box;
+}
+
+.container {
+  height: 600px;
+  margin: 30px auto;
+  width: 800px;
+  background-color: #000;  
+}
+
+.row {
+  display: inline-block;
+  width: 50px;
+}
+
+.gridsquare {
+  height: 40px;  
+  box-sizing: border-box;
+  padding-top: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.invader {
+    text-align: center;
+    background-color: red;
+}
+
+
+.ship {
+    text-align: center;
+    background-color: red;
+}
