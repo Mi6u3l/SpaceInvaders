@@ -21,6 +21,7 @@ function Game(options) {
 
      this._drawInvaders();
      this._drawShip();
+     this._assignControlsToKeys();
 }
 
 Game.prototype._drawInvaders = function() {
@@ -59,6 +60,11 @@ Game.prototype._clearInvaders = function() {
   $('.invader').removeClass('invader');
 };
 
+
+Game.prototype._clearShip = function() {
+  $('.ship').removeClass('ship');
+};
+
 Game.prototype._update = function() {
   this.invaders.move();
  
@@ -67,6 +73,17 @@ Game.prototype._update = function() {
   this._drawInvaders();
 };
 
+Game.prototype.moveShipLeft = function() {
+    this.ship.goLeft();
+    this._clearShip();
+    this._drawShip();
+};
+
+Game.prototype.moveShipRight = function() {
+    this.ship.goRight();
+    this._clearShip();
+    this._drawShip();
+};
 
 Game.prototype.start = function() {
       if (!this.intervalId) {
@@ -74,5 +91,16 @@ Game.prototype.start = function() {
   }
 };
 
+Game.prototype._assignControlsToKeys = function() {
+  $('body').on('keydown', function(e) {
+    switch (e.keyCode) {
+      case 37: // arrow left
+        this.moveShipLeft();
+        break;
+      case 39: // arrow right
+        this.moveShipRight();
+    }
+  }.bind(this));
+};
 
 
