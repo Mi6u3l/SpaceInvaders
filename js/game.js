@@ -26,24 +26,23 @@ function Game(options) {
 
 Game.prototype._drawInvaders = function() {
     this.invaders.firstLineInvaders.locations.forEach(function(position, index) {
-    var selector = '[data-row=' + position.row + ']' +
-                   '[data-col=' + position.column + ']';
-    $(selector).addClass('invader');
-    $(selector).text('1I');
+    if (position.row !== 'x') {
+        var selector = '[data-row=' + position.row + ']' +
+                    '[data-col=' + position.column + ']';
+        $(selector).addClass('invader');
+    }
   });
 
    this.invaders.secondLineInvaders.locations.forEach(function(position, index) {
     var selector = '[data-row=' + position.row + ']' +
                    '[data-col=' + position.column + ']';
     $(selector).addClass('invader');
-    $(selector).text('2I');
   });
 
    this.invaders.thirdLineInvaders.locations.forEach(function(position, index) {
     var selector = '[data-row=' + position.row + ']' +
                    '[data-col=' + position.column + ']';
     $(selector).addClass('invader');
-    $(selector).text('3I');
   });
 };
 
@@ -52,16 +51,13 @@ Game.prototype._drawShip = function() {
         var selector = '[data-row=' + position.row + ']' +
                     '[data-col=' + position.column + ']';
         $(selector).addClass('ship');
-        $(selector).text('S');
     });
 };
 
 Game.prototype._drawLaser = function() {
     var selector = '[data-row=' + (this.laser.row-1) + ']' +
                    '[data-col=' + this.laser.col + ']';
-    console.log(selector);
     $(selector).addClass('laser');
-    $(selector).text('l');
 };
 
 Game.prototype._clearInvaders = function() {
@@ -100,15 +96,52 @@ Game.prototype.shootLaser = function() {
     this.laser = new Laser({col: laserStartCol, row: laserStartRow});
     this._drawLaser();
     if (!this.laser.intervalId) {
-        this.laser.intervalId = setInterval(this._updateLaser.bind(this), 100);   
+        this.laser.intervalId = setInterval(this._updateLaser.bind(this), 150);   
     }
 };
 
 Game.prototype._updateLaser = function() {
     this.laser.move();
     this._clearLaser();
-    this._drawLaser();
-    
+    var invaderShot = false;
+    this.invaders.thirdLineInvaders.locations.forEach(function(position, index) {
+        if (this.laser.collidesWith(position)) {           
+            clearInterval(this.laser.intervalId);
+            invaderShot = true;
+             var selector = '[data-row=' + position.row + ']' +
+                    '[data-col=' + position.column + ']';
+             position.row = 'x';
+             $(selector).removeClass('invader');
+             
+        }
+    }.bind(this));
+
+    this.invaders.secondLineInvaders.locations.forEach(function(position, index) {
+        if (this.laser.collidesWith(position)) {    
+            console.log('shot');   
+             clearInterval(this.laser.intervalId);
+             invaderShot = true;
+             var selector = '[data-row=' + position.row + ']' +
+                    '[data-col=' + position.column + ']';
+             position.row = 'x';
+             $(selector).removeClass('invader');
+        }
+    }.bind(this));
+
+    this.invaders.firstLineInvaders.locations.forEach(function(position, index) {
+        if (this.laser.collidesWith(position)) {        
+            clearInterval(this.laser.intervalId);
+            invaderShot = true;
+            var selector = '[data-row=' + position.row + ']' +
+                    '[data-col=' + position.column + ']';
+             position.row = 'x';
+             $(selector).removeClass('invader');
+        }
+    }.bind(this));
+
+    if (!invaderShot) {
+        this._drawLaser();
+    }
 };
 
 Game.prototype.start = function() {
