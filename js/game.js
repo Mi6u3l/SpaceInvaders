@@ -4,7 +4,7 @@ function Game(options) {
     this.invaders = options.invaders;
     this.ship = options.ship;
  
-    var canvas = document.getElementById('board');
+    this.canvas = document.getElementById('board');
     for(var col = 0; col < this.columns; col++){ 
             var colDiv = document.createElement("div"); 
             colDiv.className = "row"; 
@@ -16,7 +16,7 @@ function Game(options) {
                 cell.setAttribute('data-col', col);
                 colDiv.appendChild(cell); 
             } 
-        canvas.appendChild(colDiv); 
+        this.canvas.appendChild(colDiv); 
         } 
 
      this._drawInvaders();
@@ -76,6 +76,40 @@ Game.prototype._updateInvaders = function() {
   this.invaders.move();
   this._clearInvaders();
   this._drawInvaders();
+  this._getFrontLineInvaders();
+};
+
+Game.prototype._getFrontLineInvaders = function() {
+  var frontLineInvaders = [];
+
+  var firstAliveInvaders = $(".invader[data-row='4']").each(function() {
+     var dataRow = ($(this).attr('data-row'));
+     var dataColumn = ($(this).attr('data-col'));
+     frontLineInvaders.push("'[data-row='" + dataRow + "']''[data-col='" + dataColumn + "']'");
+  });
+
+  var secondAliveInvaders = $(".invader[data-row='3']").each(function() {
+     var dataRow = ($(this).attr('data-row'));
+     var dataColumn = ($(this).attr('data-col'));
+     //check for invader in front of this
+     var invaderInFront = $(".invader[data-row='4'][data-col='" + dataColumn + "']");
+     if (invaderInFront.length === 0) {
+         frontLineInvaders.push("'[data-row='" + dataRow + "']''[data-col='" + dataColumn + "']'");
+     }
+  });
+
+  var thirdAliveInvaders = $(".invader[data-row='2']").each(function() {
+     var dataRow = ($(this).attr('data-row'));
+     var dataColumn = ($(this).attr('data-col'));
+     //check for invader in front of this
+     var invaderInFront = $(".invader[data-row='3'][data-col='" + dataColumn + "']");
+     if (invaderInFront.length === 0) {
+         frontLineInvaders.push("'[data-row='" + dataRow + "']''[data-col='" + dataColumn + "']'");
+     }
+  });
+
+    console.log(frontLineInvaders);
+  
 };
 
 Game.prototype.moveShipLeft = function() {

@@ -3,7 +3,6 @@ function Laser(coordinates){
     this.row = coordinates.row;
 }
 
-
 Laser.prototype.move = function() {
     this.row-=1;
 };

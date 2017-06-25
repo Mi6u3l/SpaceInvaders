@@ -18,7 +18,7 @@
   height: 40px;  
   box-sizing: border-box;
   padding-top: 10px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+ 
 }
 
 .invader {
@@ -33,4 +33,5 @@
 
 .laser {  
    border-left: 4px solid blue;
+   margin-left: 20px;
 }
