@@ -49,7 +49,6 @@ Game.prototype._drawInvaders = function() {
 };
 
 Game.prototype._drawShip = function() { 
-    console.log('drawing ship');
         this.ship.locations.forEach(function(position, index) {
         var selector = '[data-row=' + position.row + ']' +
                     '[data-col=' + position.column + ']';
@@ -106,7 +105,9 @@ Game.prototype._checkForGameEnd = function() {
     if ($('.ship').length === 0) {
         this.lives-=1;
         $('#lives-ul li:last-child').remove();
-        alert('You have ' + this.lives + ' lives left.');
+        if (this.lives !== 0) {
+            alert('Ouch! You have ' + this.lives + ' millenium falcon(s) left.');
+        }
         this._drawShip();
         if (this.lives === 0) {
             gameOver = true;
@@ -128,8 +129,10 @@ Game.prototype._checkForGameEnd = function() {
 Game.prototype._getFrontLineInvaders = function() {
 
   var frontLineInvaders = [];
-
-  var firstAliveInvaders = $(".invader3[data-row='4']").each(function() {
+  
+  var firstRow = this.invaders.lastInvadersRow;
+  console.log(firstRow);
+  var firstAliveInvaders = $(".invader3[data-row='" + firstRow + "']").each(function() {
      var dataRow = ($(this).attr('data-row'));
      var dataColumn = ($(this).attr('data-col'));
      var obj = {
@@ -140,11 +143,12 @@ Game.prototype._getFrontLineInvaders = function() {
      frontLineInvaders.push(obj);
   });
 
-  var secondAliveInvaders = $(".invader2[data-row='3']").each(function() {
+  var secondRow = this.invaders.lastInvadersRow - 1;
+  var secondAliveInvaders = $(".invader2[data-row='" + secondRow + "']").each(function() {
      var dataRow = ($(this).attr('data-row'));
      var dataColumn = ($(this).attr('data-col'));
      //check for invader in front of this
-     var invaderInFront = $(".invader3[data-row='4'][data-col='" + dataColumn + "']");
+     var invaderInFront = $(".invader3[data-row='" + firstRow + "'][data-col='" + dataColumn + "']");
      if (invaderInFront.length === 0) {
      var obj = {
          col: dataColumn,
@@ -155,11 +159,12 @@ Game.prototype._getFrontLineInvaders = function() {
      }
   });
 
-  var thirdAliveInvaders = $(".invader1[data-row='2']").each(function() {
+  var thirdRow = this.invaders.lastInvadersRow - 2;
+  var thirdAliveInvaders = $(".invader1[data-row='" + thirdRow + "']").each(function() {
      var dataRow = ($(this).attr('data-row'));
      var dataColumn = ($(this).attr('data-col'));
      //check for invader in front of this
-     var invaderInFront = $(".invader2[data-row='3'][data-col='" + dataColumn + "']");
+     var invaderInFront = $(".invader2[data-row='" + secondRow + "'][data-col='" + dataColumn + "']");
      if (invaderInFront.length === 0) {
      var obj = {
          col: dataColumn,
