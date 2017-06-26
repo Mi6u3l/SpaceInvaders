@@ -9,9 +9,24 @@
   </style>
 </head>
 <body>
-  <div></div>
-  <div id="board" class="container">
+  <div class="wrapper">
+    <div class="lives">
+      <span class="lives-title">Lives</span>
+      <ul id="lives-ul">
+        <li><img src="images/ship.png"/></li>
+        <li><img src="images/ship.png"/></li>
+        <li><img src="images/ship.png"/></li>
+      </ul>
+    </div>
+    <div id="board" class="container"></div>
+    <div class="points">
+    <span class="points-title">Points</span>  
+      <div class="points-total" >
+        0
+      </div>
+    </div>
   </div>
+  
    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
    <script src="js/invaders.js"></script>
    <script src="js/ship.js"></script>

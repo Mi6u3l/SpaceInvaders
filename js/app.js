@@ -2,6 +2,7 @@ var game;
 
 $(document).ready(function() {
   game = new Game({
+    lives: 3,
     rows: 15,
     columns: 16,
     invaders: new Invaders( {

@@ -3,6 +3,8 @@ function Game(options) {
     this.columns = options.columns;
     this.invaders = options.invaders;
     this.ship = options.ship;
+    this.lives = options.lives;
+    this.points = 0;
  
     this.canvas = document.getElementById('board');
     for(var col = 0; col < this.columns; col++){ 
@@ -47,6 +49,7 @@ Game.prototype._drawInvaders = function() {
 };
 
 Game.prototype._drawShip = function() { 
+    console.log('drawing ship');
         this.ship.locations.forEach(function(position, index) {
         var selector = '[data-row=' + position.row + ']' +
                     '[data-col=' + position.column + ']';
@@ -101,8 +104,14 @@ Game.prototype._updateInvaders = function() {
 Game.prototype._checkForGameEnd = function() { 
     var gameOver = false;
     if ($('.ship').length === 0) {
-        alert('Game over!');  
-        gameOver = true;
+        this.lives-=1;
+        $('#lives-ul li:last-child').remove();
+        alert('You have ' + this.lives + ' lives left.');
+        this._drawShip();
+        if (this.lives === 0) {
+            gameOver = true;
+            alert('Game over');
+        }        
     }
     if ($('.invader1').length === 0) {
         alert('You win!');     
@@ -196,7 +205,7 @@ Game.prototype.shootInvadersLaser = function(obj) {
     this.invadersLaser = new Laser({col: laserStartCol, row: laserStartRow});
     this._drawInvadersLaser();
     if (!this.invadersLaser.intervalId) {
-        this.invadersLaser.intervalId = setInterval(this._updateInvadersLaser.bind(this), 150);   
+        this.invadersLaser.intervalId = setInterval(this._updateInvadersLaser.bind(this), 50);   
     }
 };
 
@@ -214,7 +223,6 @@ Game.prototype._updateInvadersLaser = function() {
             shipShot = true;
             var selector = '[data-row=' + position.row + ']' +
                     '[data-col=' + position.column + ']';
-             position.row = 'x';
              $(selector).removeClass('ship');
         }
     }.bind(this));
@@ -236,6 +244,8 @@ Game.prototype._updateShipLaser = function() {
              var selector = '[data-row=' + position.row + ']' +
                     '[data-col=' + position.column + ']';
              position.row = 'x';
+             this.points += 10;
+             $('.points-total').text(this.points);
              $(selector).removeClass('invader3');
              
         }
@@ -248,6 +258,8 @@ Game.prototype._updateShipLaser = function() {
              var selector = '[data-row=' + position.row + ']' +
                     '[data-col=' + position.column + ']';
              position.row = 'x';
+             this.points += 20;
+             $('.points-total').text(this.points);
              $(selector).removeClass('invader2');
         }
     }.bind(this));
@@ -260,7 +272,8 @@ Game.prototype._updateShipLaser = function() {
             var selector = '[data-row=' + position.row + ']' +
                     '[data-col=' + position.column + ']';
              position.row = 'x';
-    
+             this.points += 30;
+             $('.points-total').text(this.points);
              $(selector).removeClass('invader1');
         }
     }.bind(this));
@@ -279,14 +292,9 @@ Game.prototype.start = function() {
 Game.prototype._shuffle = function(array) {
   var currentIndex = array.length, temporaryValue, randomIndex;
 
-  // While there remain elements to shuffle...
   while (0 !== currentIndex) {
-
-    // Pick a remaining element...
     randomIndex = Math.floor(Math.random() * currentIndex);
     currentIndex -= 1;
-
-    // And swap it with the current element.
     temporaryValue = array[currentIndex];
     array[currentIndex] = array[randomIndex];
     array[randomIndex] = temporaryValue;

@@ -1,6 +1,13 @@
+@font-face {
+    font-family: arcade;
+    src: url('font/PressStart2P.ttf');
+}
+
 * {
   box-sizing: border-box;
 }
+
+
 
 body {
     background-image: url('../images/background.jpg');
@@ -51,10 +58,47 @@ body {
 }
 
 .laser {  
-   border-left: 4px solid green;
+    background-image: url(../images/shipLaser.png);
+    background-size: 10px 30px;
+    background-position-x: 24px;
+    background-repeat: no-repeat;
 }
 
 
 .invadersLaser {
-    border-left: 4px solid blue;
+    background-image: url(../images/invadersLaser.png);
+    background-size: 5px 30px;
+    background-position-x: 24px;
+    background-repeat: no-repeat;
+}
+
+.lives {
+    font-family: arcade;
+    color: #fff;
+    position: absolute;
+}
+
+.lives ul {
+  list-style: none;
+}
+
+.points {
+    font-family: arcade;
+    color: #fff;
+    position: absolute;
+    float: right;
+    left: 1060px;
+    top: 32px;
+    padding-left: 40px;
+    text-align: center;
+}
+
+.lives-title {
+  padding-left: 36px;
+}
+
+.points-total {
+    padding-top: 13px;
+    color: green;
+    font-size: 26px;
 }
