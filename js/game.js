@@ -181,8 +181,7 @@ Game.prototype.moveShipRight = function() {
 };
 
 Game.prototype.shootShipLaser = function() {
-    console.log('shooting');
-    var laserStartCol = this.ship.locations[2].column;
+    var laserStartCol = this.ship.locations[0].column;
     var laserStartRow = 13;
     this.shipLaser = new Laser({col: laserStartCol, row: laserStartRow});
     this._drawShipLaser();
@@ -197,7 +196,7 @@ Game.prototype.shootInvadersLaser = function(obj) {
     this.invadersLaser = new Laser({col: laserStartCol, row: laserStartRow});
     this._drawInvadersLaser();
     if (!this.invadersLaser.intervalId) {
-        this.invadersLaser.intervalId = setInterval(this._updateInvadersLaser.bind(this), 50);   
+        this.invadersLaser.intervalId = setInterval(this._updateInvadersLaser.bind(this), 150);   
     }
 };
 
@@ -230,13 +229,14 @@ Game.prototype._updateShipLaser = function() {
     this._clearLaser();
     var invaderShot = false;
     this.invaders.thirdLineInvaders.locations.forEach(function(position, index) {
-        if (this.shipLaser.collidesWith(position)) {           
+        if (this.shipLaser.collidesWith(position)) { 
+            console.log('invader shot');          
             clearInterval(this.shipLaser.intervalId);
             invaderShot = true;
              var selector = '[data-row=' + position.row + ']' +
                     '[data-col=' + position.column + ']';
              position.row = 'x';
-             $(selector).removeClass('invader1');
+             $(selector).removeClass('invader3');
              
         }
     }.bind(this));
@@ -254,12 +254,14 @@ Game.prototype._updateShipLaser = function() {
 
     this.invaders.firstLineInvaders.locations.forEach(function(position, index) {
         if (this.shipLaser.collidesWith(position)) {        
+            
             clearInterval(this.shipLaser.intervalId);
             invaderShot = true;
             var selector = '[data-row=' + position.row + ']' +
                     '[data-col=' + position.column + ']';
              position.row = 'x';
-             $(selector).removeClass('invader3');
+    
+             $(selector).removeClass('invader1');
         }
     }.bind(this));
 

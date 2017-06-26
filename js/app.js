@@ -45,10 +45,7 @@ $(document).ready(function() {
       
     }),
     ship : new Ship({
-      locations: [{ row: 13, column: 7 },
-                  { row: 14, column: 7 },
-                  { row: 13, column: 8 },
-                  { row: 14, column: 8 }],
+      locations: [{ row: 13, column: 8 }],
       image1: '',
       image2: ''
     })
