@@ -5,12 +5,6 @@ function Invaders(options) {
   this.direction = 'left';
 }
 
-Invaders.prototype.getFrontLineInvaders = function() {
-  var frontLineInvaders = [];
- 
-  return frontLineInvaders;
-};
-
 Invaders.prototype.move = function() {
       if (this.firstLineInvaders.locations[0].column === 1) {
        this.direction = 'right';

@@ -26,12 +26,34 @@
     background-color: red;
 }
 
+.invader1 {
+    background-image: url('../images/invader1.png');
+    background-size: cover;
+    color:transparent;
+}
+
+.invader2 {
+    background-image: url('../images/invader2.png');
+    background-size: cover;
+    color:transparent;
+}
+
+.invader3 {
+    background-image: url('../images/invader3.png');
+    background-size: cover;
+    color:transparent;
+}
+
 .ship {
     text-align: center;
     background-color: red;
 }
 
 .laser {  
-   border-left: 4px solid blue;
-   margin-left: 20px;
+   border-left: 4px solid green;
+}
+
+
+.invadersLaser {
+    border-left: 4px solid blue;
 }
