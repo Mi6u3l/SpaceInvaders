@@ -33,3 +33,8 @@ Ship.prototype.goRight = function() {
     }
   });
 };
+
+
+Ship.prototype.collidesWith = function(pos) {
+    return this.locations[0].row == pos.row && this.locations[0].column == pos.column;
+ };

@@ -92,6 +92,37 @@ Game.prototype._updateInvaders = function() {
   this.invaders.move();
   this._clearInvaders();
   this._drawInvaders();
+
+  this.invaders.thirdLineInvaders.locations.forEach(function(position, index) {
+        if (this.ship.collidesWith(position)) {       
+             var selector = '[data-row=' + position.row + ']' +
+                    '[data-col=' + position.column + ']';
+             position.row = 'x';
+             $(selector).removeClass('ship');
+             
+        }
+    }.bind(this));
+
+    this.invaders.secondLineInvaders.locations.forEach(function(position, index) {
+        if (this.ship.collidesWith(position)) {       
+             var selector = '[data-row=' + position.row + ']' +
+                    '[data-col=' + position.column + ']';
+             position.row = 'x';
+             $(selector).removeClass('ship');
+             
+        }
+    }.bind(this));
+
+    this.invaders.thirdLineInvaders.locations.forEach(function(position, index) {
+        if (this.ship.collidesWith(position)) {       
+             var selector = '[data-row=' + position.row + ']' +
+                    '[data-col=' + position.column + ']';
+             position.row = 'x';
+             $(selector).removeClass('ship');
+             
+        }
+    }.bind(this));
+
   this._checkForGameEnd();
   if (!this.invadersLaser || (this.invadersLaser && this.invadersLaser.intervalId)) {
     this._getFrontLineInvaders();
@@ -131,7 +162,6 @@ Game.prototype._getFrontLineInvaders = function() {
   var frontLineInvaders = [];
   
   var firstRow = this.invaders.lastInvadersRow;
-  console.log(firstRow);
   var firstAliveInvaders = $(".invader3[data-row='" + firstRow + "']").each(function() {
      var dataRow = ($(this).attr('data-row'));
      var dataColumn = ($(this).attr('data-col'));

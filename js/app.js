@@ -6,7 +6,7 @@ $(document).ready(function() {
     rows: 15,
     columns: 16,
     invaders: new Invaders( {
-        lastInvadersRow: 4,
+       lastInvadersRow: 4,
         direction: 'left',
         firstLineInvaders: { image: '', locations : [
           { row: 2, column: 3 },
