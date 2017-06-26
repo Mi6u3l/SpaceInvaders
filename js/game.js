@@ -130,7 +130,6 @@ Game.prototype._updateInvaders = function() {
    
 };
 
-
 Game.prototype._checkForGameEnd = function() { 
     var gameOver = false;
     if ($('.ship').length === 0) {
@@ -142,11 +141,11 @@ Game.prototype._checkForGameEnd = function() {
         this._drawShip();
         if (this.lives === 0) {
             gameOver = true;
-            alert('Game over');
+            alert('Sorry, the Empire took the best of you!');
         }        
     }
     if ($('.invader1').length === 0) {
-        alert('You win!');     
+        alert('The force is strong with you!');     
         gameOver = true;
     }
 
@@ -158,9 +157,7 @@ Game.prototype._checkForGameEnd = function() {
 };
 
 Game.prototype._getFrontLineInvaders = function() {
-
   var frontLineInvaders = [];
-  
   var firstRow = this.invaders.lastInvadersRow;
   var firstAliveInvaders = $(".invader3[data-row='" + firstRow + "']").each(function() {
      var dataRow = ($(this).attr('data-row'));
@@ -206,9 +203,7 @@ Game.prototype._getFrontLineInvaders = function() {
   });
 
   var shuffledFrontLineShooters = this._shuffle(frontLineInvaders);
-  //shooting one laser at a time    
   this.shootInvadersLaser(shuffledFrontLineShooters[0]);
-  
 
 };
 
@@ -341,7 +336,7 @@ Game.prototype._shuffle = function(array) {
 Game.prototype._assignControlsToKeys = function() {
   $('body').on('keydown', function(e) {
     switch (e.keyCode) {
-      case 32: // arrow left
+      case 32: // spance key
         if(this.shipLaser !== undefined) {
             clearInterval(this.shipLaser.intervalId);
         }

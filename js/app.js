@@ -53,5 +53,10 @@ $(document).ready(function() {
     })
         
   });
-  game.start();
 });
+
+var startGame = function() {
+  $('.intro').hide();
+  $('.game-wrapper').show();
+  game.start();
+};

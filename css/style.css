@@ -7,8 +7,6 @@
   box-sizing: border-box;
 }
 
-
-
 body {
     background-image: url('../images/background.jpg');
 }
@@ -31,7 +29,6 @@ body {
   padding-top: 10px;
  
 }
-
 
 .invader1 {
     background-image: url('../images/invader1.png');
@@ -63,7 +60,6 @@ body {
     background-position-x: 24px;
     background-repeat: no-repeat;
 }
-
 
 .invadersLaser {
     background-image: url(../images/invadersLaser.png);
@@ -101,4 +97,65 @@ body {
     padding-top: 13px;
     color: green;
     font-size: 26px;
+}
+
+.game-wrapper {
+  display: none;
+}
+
+.intro {
+  height: 600px;
+  margin: 30px auto;
+  width: 800px;
+  background-color: #000; 
+  text-align: center;
+}
+
+.intro-title {
+    font-size: 60px;
+    padding-left: 70px;
+    padding-top: 40px;
+    color: #fff;
+    font-family: arcade;
+    display: inline-block;
+}
+
+.intro-subtitle {
+    color: green;
+    font-family: arcade;
+    font-size: 63px;
+    padding-left: 44px;
+}
+
+.intro-invaders {
+    color: #fff;
+    font-family: arcade;
+    padding-top: 20px;
+}
+
+.intro-invaders img {
+   width: 40px;
+}
+
+.intro-invaders ul {
+  list-style-type: none;
+}
+
+.intro-start {
+  padding-top: 90px;
+  font-size: 30px;
+  font-family: arcade;
+}
+
+.intro-start a {
+  color: #fff;
+  text-decoration: none;
+}
+
+.blink_me {
+  animation: blinker 1s linear infinite;
+}
+
+@keyframes blinker {  
+  50% { opacity: 0; }
 }
