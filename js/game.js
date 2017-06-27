@@ -141,7 +141,7 @@ Game.prototype._checkForGameEnd = function() {
         this.lives-=1;
         $('#lives-ul li:last-child').remove();
         if (this.lives !== 0) {
-            $('#feedbackModalBody').text('Ouch! You have ' + this.lives + ' millenium falcon(s) left.');
+            $('#feedbackModalBody').text('Ouch! You have ' + this.lives + ' Millenium Falcon(s) left.');
             $('#feedbackModal').modal('show');
             this.stop();
         }
