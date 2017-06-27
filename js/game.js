@@ -141,23 +141,28 @@ Game.prototype._checkForGameEnd = function() {
         this.lives-=1;
         $('#lives-ul li:last-child').remove();
         if (this.lives !== 0) {
-            alert('Ouch! You have ' + this.lives + ' millenium falcon(s) left.');
+            $('#feedbackModalBody').text('Ouch! You have ' + this.lives + ' millenium falcon(s) left.');
+            $('#feedbackModal').modal('show');
+            this.stop();
         }
         this._drawShip();
         if (this.lives === 0) {
             gameOver = true;
-            alert('Sorry, the Empire took the best of you!');
+            this.stop();
+            $('#feedbackModal').modal('show');
+            $('#feedbackModalBody').text('My young padawan! The Empire took the best of you.');
+            $('#feedbackModalButton').html('Play again');
+            $("#feedbackModalButton").attr('onclick','location.reload()');
+
         }        
     }
     if ($('.invader1').length === 0) {
-        alert('The force is strong with you!');     
         gameOver = true;
-    }
-
-    if (gameOver) {
-         clearInterval(this.invadersLaser.intervalId);
-         clearInterval(this.shipLaser.intervalId);
-         clearInterval(this.intervalId);
+        this.stop();
+         $('#feedbackModal').modal('show');
+         $('#feedbackModalBody').text('Well done, this will teach Vader a lesson!');
+         $('#feedbackModalButton').html('Play again');
+         $("#feedbackModalButton").attr('onclick','location.reload()');
     }
 };
 
@@ -336,6 +341,13 @@ Game.prototype.start = function() {
   }
 };
 
+Game.prototype.stop = function() {
+  if (this.intervalId) {
+    clearInterval(this.intervalId);
+    this.intervalId = undefined;
+  }
+};
+
 Game.prototype._shuffle = function(array) {
   var currentIndex = array.length, temporaryValue, randomIndex;
 
@@ -353,7 +365,8 @@ Game.prototype._shuffle = function(array) {
 Game.prototype._assignControlsToKeys = function() {
   $('body').on('keydown', function(e) {
     switch (e.keyCode) {
-      case 32: // spance key
+      case 32: // space key
+        e.preventDefault();
         if(this.shipLaser !== undefined) {
             clearInterval(this.shipLaser.intervalId);
         }

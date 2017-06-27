@@ -21,12 +21,15 @@ body {
 .row {
   display: inline-block;
   width: 50px;
+  margin-left: 0px;
+  margin-right: 0px;
 }
 
 .gridsquare {
   height: 40px;  
   box-sizing: border-box;
   padding-top: 10px;
+  color: #000;
  
 }
 
@@ -152,8 +155,28 @@ body {
   text-decoration: none;
 }
 
+.feedbackmodal-content {
+    width: 400px;
+    position: absolute;
+    top: 220px;
+    left: 450px;
+    font-family: arcade;
+    background-color: gray;
+
+}
+
 .blink_me {
   animation: blinker 1s linear infinite;
+}
+
+.modal-content {
+    background-color: grey;
+    font-family: arcade;
+}
+
+.modal-body {
+    color: green;
+    font-size: 20px;
 }
 
 @keyframes blinker {  

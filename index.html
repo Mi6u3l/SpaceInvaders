@@ -5,6 +5,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
   <title>Space Invaders in JavaScript</title>
+  
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <link rel="stylesheet" href="css/style.css">
   </style>
 </head>
@@ -43,9 +45,40 @@
         0
       </div>
     </div>
+ 
+ 
+
+      </div>
+    </div>
+
+        <!-- Modal -->
+    <div id="feedbackModal" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">There's some disturbance in the Force.</h4>
+          </div>
+          <div id="feedbackModalBody" class="modal-body">
+            <p></p>
+          </div>
+          <div class="modal-footer">
+            <button id="feedbackModalButton" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+
   </div>
   
    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.4.0/bootbox.min.js"></script>
+
    <script src="js/invaders.js"></script>
    <script src="js/ship.js"></script>
    <script src="js/laser.js"></script>

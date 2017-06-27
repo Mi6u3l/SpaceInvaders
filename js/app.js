@@ -53,7 +53,11 @@ $(document).ready(function() {
     })
         
   });
+  
+});
 
+$('#feedbackModal').on('hidden.bs.modal', function () {
+    game.start();
 });
 
 var startGame = function() {
