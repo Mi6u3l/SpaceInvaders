@@ -53,6 +53,7 @@ $(document).ready(function() {
     })
         
   });
+
 });
 
 var startGame = function() {

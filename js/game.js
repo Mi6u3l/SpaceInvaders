@@ -93,11 +93,14 @@ Game.prototype._updateInvaders = function() {
   this._clearInvaders();
   this._drawInvaders();
 
+  var shipDestroyed = document.getElementById('shipDestroyed');
+  shipDestroyed.volume = 0.4;               
   this.invaders.thirdLineInvaders.locations.forEach(function(position, index) {
         if (this.ship.collidesWith(position)) {       
              var selector = '[data-row=' + position.row + ']' +
                     '[data-col=' + position.column + ']';
              position.row = 'x';
+             shipDestroyed.play();
              $(selector).removeClass('ship');
              
         }
@@ -108,6 +111,7 @@ Game.prototype._updateInvaders = function() {
              var selector = '[data-row=' + position.row + ']' +
                     '[data-col=' + position.column + ']';
              position.row = 'x';
+             shipDestroyed.play();
              $(selector).removeClass('ship');
              
         }
@@ -118,6 +122,7 @@ Game.prototype._updateInvaders = function() {
              var selector = '[data-row=' + position.row + ']' +
                     '[data-col=' + position.column + ']';
              position.row = 'x';
+             shipDestroyed.play();
              $(selector).removeClass('ship');
              
         }
@@ -205,6 +210,7 @@ Game.prototype._getFrontLineInvaders = function() {
   var shuffledFrontLineShooters = this._shuffle(frontLineInvaders);
   this.shootInvadersLaser(shuffledFrontLineShooters[0]);
 
+
 };
 
 Game.prototype.moveShipLeft = function() {
@@ -220,6 +226,9 @@ Game.prototype.moveShipRight = function() {
 };
 
 Game.prototype.shootShipLaser = function() {
+    var shipLaserSound = document.getElementById('shipLaser');
+    shipLaserSound.volume = 0.3;
+    shipLaserSound.play();
     var laserStartCol = this.ship.locations[0].column;
     var laserStartRow = 13;
     this.shipLaser = new Laser({col: laserStartCol, row: laserStartRow});
@@ -253,6 +262,9 @@ Game.prototype._updateInvadersLaser = function() {
             shipShot = true;
             var selector = '[data-row=' + position.row + ']' +
                     '[data-col=' + position.column + ']';
+             var shipDestroyed = document.getElementById('shipDestroyed');
+             shipDestroyed.volume = 0.4;  
+             shipDestroyed.play();
              $(selector).removeClass('ship');
         }
     }.bind(this));
@@ -266,6 +278,8 @@ Game.prototype._updateShipLaser = function() {
     this.shipLaser.moveShipLaser();
     this._clearLaser();
     var invaderShot = false;
+    var invaderDestroyed = document.getElementById('invaderDestroyed');
+    invaderDestroyed.volume = 0.7;  
     this.invaders.thirdLineInvaders.locations.forEach(function(position, index) {
         if (this.shipLaser.collidesWith(position)) { 
             console.log('invader shot');          
@@ -275,7 +289,8 @@ Game.prototype._updateShipLaser = function() {
                     '[data-col=' + position.column + ']';
              position.row = 'x';
              this.points += 10;
-             $('.points-total').text(this.points);
+             $('.points-total').text(this.points); 
+             invaderDestroyed.play();
              $(selector).removeClass('invader3');
              
         }
@@ -290,6 +305,7 @@ Game.prototype._updateShipLaser = function() {
              position.row = 'x';
              this.points += 20;
              $('.points-total').text(this.points);
+             invaderDestroyed.play();
              $(selector).removeClass('invader2');
         }
     }.bind(this));
@@ -304,6 +320,7 @@ Game.prototype._updateShipLaser = function() {
              position.row = 'x';
              this.points += 30;
              $('.points-total').text(this.points);
+             invaderDestroyed.play();
              $(selector).removeClass('invader1');
         }
     }.bind(this));
