@@ -194,6 +194,12 @@ body {
     color: transparent;
 }
 
+.explosion {
+    background-image: url(../images/explosion.png);
+    background-size: 52px 41px;
+    color: transparent;
+}
+
 @keyframes blinker {  
   50% { opacity: 0; }
 }

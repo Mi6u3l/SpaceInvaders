@@ -131,6 +131,7 @@ Game.prototype._updateInvaders = function() {
              position.row = 'x';
              shipDestroyed.play();
              $(selector).removeClass('ship');
+             $(selector).addClass('explosion');
              
         }
     }.bind(this));
@@ -142,7 +143,7 @@ Game.prototype._updateInvaders = function() {
              position.row = 'x';
              shipDestroyed.play();
              $(selector).removeClass('ship');
-             
+             $(selector).addClass('explosion');
         }
     }.bind(this));
 
@@ -153,6 +154,7 @@ Game.prototype._updateInvaders = function() {
              position.row = 'x';
              shipDestroyed.play();
              $(selector).removeClass('ship');
+             $(selector).addClass('explosion');
              
         }
     }.bind(this));
@@ -174,7 +176,10 @@ Game.prototype._checkForGameEnd = function() {
             $('#feedbackModal').modal('show');
             this.stop();
         }
+  
+        setTimeout(function(){ $('.explosion').removeClass('explosion'); }, 2000);
         this._drawShip();
+        
         if (this.lives === 0) {
             gameOver = true;
             this.stop();
@@ -300,11 +305,14 @@ Game.prototype._updateInvadersLaser = function() {
              shipDestroyed.volume = 0.4;  
              shipDestroyed.play();
              $(selector).removeClass('ship');
+             $(selector).addClass('explosion');
         }
     }.bind(this));
 
     if (!shipShot) {
         this._drawInvadersLaser(); 
+    } else {
+        this._checkForGameEnd();
     }
 };
 
