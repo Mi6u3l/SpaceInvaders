@@ -179,6 +179,21 @@ body {
     font-size: 20px;
 }
 
+.death-star1 {
+    background-image: url(../images/deathStar1.jpeg);
+    background-size: 50px 40px;
+    background-position-x: 0px;
+    color: transparent;
+}
+
+.death-star2 {
+    background-image: url(../images/deathStar2.jpeg);
+    background-size: 53px 40px;
+    background-position-x: 0px;
+    background-repeat: no-repeat;
+    color: transparent;
+}
+
 @keyframes blinker {  
   50% { opacity: 0; }
 }

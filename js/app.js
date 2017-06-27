@@ -5,22 +5,14 @@ $(document).ready(function() {
     lives: 3,
     rows: 15,
     columns: 16,
+     deathStar: new DeathStar ([
+          { row: 1, column: 6 },
+          { row: 1, column: 7 },
+        ]),
     invaders: new Invaders( {
-       lastInvadersRow: 4,
+       lastInvadersRow: 5,
         direction: 'left',
         firstLineInvaders: { image: '', locations : [
-          { row: 2, column: 3 },
-          { row: 2, column: 4 },
-          { row: 2, column: 5 },
-          { row: 2, column: 6 },
-          { row: 2, column: 7 },
-          { row: 2, column: 8 },
-          { row: 2, column: 9 },
-          { row: 2, column: 10 },
-          { row: 2, column: 11 }, 
-          { row: 2, column: 12 } ]
-        },
-         secondLineInvaders: { image: '', locations : [
           { row: 3, column: 3 },
           { row: 3, column: 4 },
           { row: 3, column: 5 },
@@ -32,7 +24,7 @@ $(document).ready(function() {
           { row: 3, column: 11 }, 
           { row: 3, column: 12 } ]
         },
-          thirdLineInvaders: { image: '', locations : [
+         secondLineInvaders: { image: '', locations : [
           { row: 4, column: 3 },
           { row: 4, column: 4 },
           { row: 4, column: 5 },
@@ -43,6 +35,18 @@ $(document).ready(function() {
           { row: 4, column: 10 },
           { row: 4, column: 11 }, 
           { row: 4, column: 12 } ]
+        },
+          thirdLineInvaders: { image: '', locations : [
+          { row: 5, column: 3 },
+          { row: 5, column: 4 },
+          { row: 5, column: 5 },
+          { row: 5, column: 6 },
+          { row: 5, column: 7 },
+          { row: 5, column: 8 },
+          { row: 5, column: 9 },
+          { row: 5, column: 10 },
+          { row: 5, column: 11 }, 
+          { row: 5, column: 12 } ]
         }
       
     }),

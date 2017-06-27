@@ -5,6 +5,7 @@ function Game(options) {
     this.ship = options.ship;
     this.lives = options.lives;
     this.points = 0;
+    this.deathStar = options.deathStar;
  
     this.canvas = document.getElementById('board');
     for(var col = 0; col < this.columns; col++){ 
@@ -22,9 +23,24 @@ function Game(options) {
         } 
 
      this._drawInvaders();
+     this._drawDeathStar();
      this._drawShip();
      this._assignControlsToKeys();
 }
+
+Game.prototype._drawDeathStar = function() {
+    this.deathStar.coordinates.forEach(function(position, index) {
+    if (position.row !== 'x') {
+        var selector = '[data-row=' + position.row + ']' +
+                    '[data-col=' + position.column + ']';
+        if (index === 0) {
+            $(selector).addClass('death-star1');
+        } else {
+            $(selector).addClass('death-star2');
+        }
+    }
+  });
+};
 
 Game.prototype._drawInvaders = function() {
     this.invaders.firstLineInvaders.locations.forEach(function(position, index) {
@@ -76,6 +92,12 @@ Game.prototype._clearInvaders = function() {
   $('.invader3').removeClass('invader3');
 };
 
+Game.prototype._clearDeathStar = function() {
+    $('.death-star1').removeClass('death-star1');
+    $('.death-star2').removeClass('death-star2');
+};
+
+
 Game.prototype._clearShip = function() {
   $('.ship').removeClass('ship');
 };
@@ -86,6 +108,13 @@ Game.prototype._clearLaser = function() {
 
 Game.prototype._clearInvadersLaser = function() {
   $('.invadersLaser').removeClass('invadersLaser');
+};
+
+
+Game.prototype._updateDeathStar = function () {
+    this.deathStar.move();
+    this._clearDeathStar();
+    this._drawDeathStar();
 };
 
 Game.prototype._updateInvaders = function() {
@@ -150,7 +179,7 @@ Game.prototype._checkForGameEnd = function() {
             gameOver = true;
             this.stop();
             $('#feedbackModal').modal('show');
-            $('#feedbackModalBody').text('My young padawan! The Empire took the best of you.');
+            $('#feedbackModalBody').text('My young padawan! The Empire took the best of you. Game Over!');
             $('#feedbackModalButton').html('Play again');
             $("#feedbackModalButton").attr('onclick','location.reload()');
 
@@ -284,10 +313,29 @@ Game.prototype._updateShipLaser = function() {
     this._clearLaser();
     var invaderShot = false;
     var invaderDestroyed = document.getElementById('invaderDestroyed');
-    invaderDestroyed.volume = 0.7;  
+    invaderDestroyed.volume = 0.7;
+
+    this.deathStar.coordinates.forEach(function(position, index) {
+         if (this.shipLaser.collidesWith(position)) {   
+              clearInterval(this.shipLaser.intervalId);
+              invaderShot = true;
+               var selector = '[data-row=' + position.row + ']' +
+                    '[data-col=' + position.column + ']';
+             position.row = 'x';
+             this.points += 100;
+            $('.points-total').text(this.points); 
+            //TODO 
+            if (index === 0) {
+                $(selector).removeClass('death-start1');
+            } else {
+                $(selector).removeClass('death-start2');
+            }
+             
+         }
+    }.bind(this));
+
     this.invaders.thirdLineInvaders.locations.forEach(function(position, index) {
-        if (this.shipLaser.collidesWith(position)) { 
-            console.log('invader shot');          
+        if (this.shipLaser.collidesWith(position)) {      
             clearInterval(this.shipLaser.intervalId);
             invaderShot = true;
              var selector = '[data-row=' + position.row + ']' +
@@ -336,9 +384,14 @@ Game.prototype._updateShipLaser = function() {
 };
 
 Game.prototype.start = function() {
-      if (!this.intervalId) {
+    if (!this.intervalId) {
         this.intervalId = setInterval(this._updateInvaders.bind(this), 1000);
-  }
+    }
+
+    if (!this.deathStartIntervalId) {
+        this.deathStartIntervalId = setInterval(this._updateDeathStar.bind(this), 200);
+    }
+  
 };
 
 Game.prototype.stop = function() {
