@@ -6,6 +6,7 @@ function Game(options) {
     this.lives = options.lives;
     this.points = 0;
     this.deathStar = options.deathStar;
+    this.shipDestroyed = false;
  
     this.canvas = document.getElementById('board');
     for(var col = 0; col < this.columns; col++){ 
@@ -167,31 +168,32 @@ Game.prototype._updateInvaders = function() {
 };
 
 Game.prototype._checkForGameEnd = function() { 
-    var gameOver = false;
     if ($('.ship').length === 0) {
         this.lives-=1;
+         this.shipDestroyed = true;
         $('#lives-ul li:last-child').remove();
         if (this.lives !== 0) {
             $('#feedbackModalBody').text('Ouch! You have ' + this.lives + ' Millenium Falcon(s) left.');
             $('#feedbackModal').modal('show');
             this.stop();
         }
-  
-        setTimeout(function(){ $('.explosion').removeClass('explosion'); }, 2000);
+         
         this._drawShip();
-        
+    
         if (this.lives === 0) {
-            gameOver = true;
             this.stop();
             $('#feedbackModal').modal('show');
             $('#feedbackModalBody').text('My young padawan! The Empire took the best of you. Game Over!');
             $('#feedbackModalButton').html('Play again');
             $("#feedbackModalButton").attr('onclick','location.reload()');
-
+        } else {
+            setTimeout(function(){ 
+                $('.explosion').removeClass('explosion'); 
+                this.shipDestroyed = false; 
+            }.bind(this), 2000);
         }        
     }
     if ($('.invader1').length === 0) {
-        gameOver = true;
         this.stop();
          $('#feedbackModal').modal('show');
          $('#feedbackModalBody').text('Well done, this will teach Vader a lesson!');
@@ -330,7 +332,7 @@ Game.prototype._updateShipLaser = function() {
                var selector = '[data-row=' + position.row + ']' +
                     '[data-col=' + position.column + ']';
              position.row = 'x';
-             this.points += 100;
+             this.points += 60;
             $('.points-total').text(this.points); 
             //TODO 
             if (index === 0) {
@@ -431,13 +433,19 @@ Game.prototype._assignControlsToKeys = function() {
         if(this.shipLaser !== undefined) {
             clearInterval(this.shipLaser.intervalId);
         }
-        this.shootShipLaser();
+        if (!this.shipDestroyed) {
+            this.shootShipLaser();
+        }
         break;
       case 37: // arrow left
+       if (!this.shipDestroyed) {
         this.moveShipLeft();
+       }
         break;
       case 39: // arrow right
+      if (!this.shipDestroyed) {
         this.moveShipRight();
+      }
     }
   }.bind(this));
 };

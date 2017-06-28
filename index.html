@@ -4,9 +4,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
-  <title>Space Invaders in JavaScript</title>
-  
-   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <title>Star Wars Invaders</title>
+   <link rel="stylesheet" href="css/bootstrap.min.css">
   <link rel="stylesheet" href="css/style.css">
   </style>
 </head>
@@ -23,6 +22,7 @@
         <li><img src="images/invader3.png"/> = 10 points</li>
         <li><img src="images/invader2.png"/> = 20 points</li>
         <li><img src="images/invader1.png"/> = 30 points</li>
+        <li><img class="intro-deathStar" src="images/deathStar.png"/> = 60 points (each half)</li>
       </ul>
     </div>
     <div class="intro-start blink_me">
@@ -45,17 +45,10 @@
         0
       </div>
     </div>
- 
- 
-
-      </div>
-    </div>
-
-        <!-- Modal -->
+  </div>
+  </div>
     <div id="feedbackModal" class="modal fade" role="dialog">
       <div class="modal-dialog">
-
-        <!-- Modal content-->
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -68,17 +61,11 @@
             <button id="feedbackModalButton" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
           </div>
         </div>
-
       </div>
     </div>
-
-
   </div>
-  
-   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.4.0/bootbox.min.js"></script>
-
+   <script src="js/jquery-2.1.4.js"></script>
+   <script src="js/bootstrap.min.js"></script>
    <script src="js/deathStar.js"></script>
    <script src="js/invaders.js"></script>
    <script src="js/ship.js"></script>

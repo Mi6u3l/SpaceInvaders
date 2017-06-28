@@ -75,6 +75,7 @@ body {
     font-family: arcade;
     color: #fff;
     position: absolute;
+    font-size: 22px;
 }
 
 .lives ul {
@@ -90,6 +91,7 @@ body {
     top: 32px;
     padding-left: 40px;
     text-align: center;
+    font-size: 22px;
 }
 
 .lives-title {
@@ -153,6 +155,11 @@ body {
 .intro-start a {
   color: #fff;
   text-decoration: none;
+}
+
+.intro-deathStar {
+   margin-left: 170px;
+   margin-top: 5px;
 }
 
 .feedbackmodal-content {
