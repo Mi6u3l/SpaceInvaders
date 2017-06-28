@@ -334,7 +334,8 @@ Game.prototype._updateShipLaser = function() {
              position.row = 'x';
              this.points += 60;
             $('.points-total').text(this.points); 
-            //TODO 
+            var deathStartHit = document.getElementById('deathStarHit');
+            deathStartHit.play();
             if (index === 0) {
                 $(selector).removeClass('death-start1');
             } else {
