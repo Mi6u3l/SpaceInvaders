@@ -183,7 +183,7 @@ Game.prototype._checkForGameEnd = function() {
         if (this.lives === 0) {
             this.stop();
             $('#feedbackModal').modal('show');
-            $('#feedbackModalBody').text('The Dark side was stronger today. You made ' + this.points + ' points');
+            $('#feedbackModalBody').text('The Dark side was stronger today. You made ' +  $('.points-total').text() + ' points');
             $('#feedbackModalButton').html('Play again');
             $("#feedbackModalButton").attr('onclick','location.reload()');
         } else {
@@ -196,7 +196,7 @@ Game.prototype._checkForGameEnd = function() {
     if ($('.invader1').length === 0) {
         this.stop();
          $('#feedbackModal').modal('show');
-         $('#feedbackModalBody').text('Well done, this will teach Vader a lesson! You made ' + this.points + ' points');
+         $('#feedbackModalBody').text('Well done, this will teach Vader a lesson! You made ' +  $('.points-total').text() + ' points');
          $('#feedbackModalButton').html('Play again');
          $("#feedbackModalButton").attr('onclick','location.reload()');
     }
