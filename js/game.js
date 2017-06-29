@@ -7,8 +7,8 @@ function Game(options) {
     this.points = 0;
     this.deathStar = options.deathStar;
     this.shipDestroyed = false;
- 
     this.canvas = document.getElementById('board');
+    
     for(var col = 0; col < this.columns; col++){ 
             var colDiv = document.createElement("div"); 
             colDiv.className = "row"; 
@@ -183,7 +183,7 @@ Game.prototype._checkForGameEnd = function() {
         if (this.lives === 0) {
             this.stop();
             $('#feedbackModal').modal('show');
-            $('#feedbackModalBody').text('My young padawan! The Empire took the best of you. Game Over!');
+            $('#feedbackModalBody').text('The Dark side was stronger today. You made ' + this.points + ' points');
             $('#feedbackModalButton').html('Play again');
             $("#feedbackModalButton").attr('onclick','location.reload()');
         } else {
@@ -196,7 +196,7 @@ Game.prototype._checkForGameEnd = function() {
     if ($('.invader1').length === 0) {
         this.stop();
          $('#feedbackModal').modal('show');
-         $('#feedbackModalBody').text('Well done, this will teach Vader a lesson!');
+         $('#feedbackModalBody').text('Well done, this will teach Vader a lesson! You made ' + this.points + ' points');
          $('#feedbackModalButton').html('Play again');
          $("#feedbackModalButton").attr('onclick','location.reload()');
     }
